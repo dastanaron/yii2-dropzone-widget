@@ -21,9 +21,9 @@ class BuilderDropzoneJs
         $string = 'jQuery(function ($) {
             var myDropzone = new Dropzone("div#'.$id.'", JSON.parse(\''.$optionObject.'\'));
             $("div#'.$id.'").addClass("dropzone");
-            myDropzone.on("success", function (event, response) {
-                console.log(event);
-                console.log(response);
+            myDropzone.on("drop", function (event) {
+                $("div#'.$id.'").empty();
+                console.log(event)
             });';
 
 
