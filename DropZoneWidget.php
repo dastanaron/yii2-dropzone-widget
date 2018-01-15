@@ -23,12 +23,22 @@ class DropZoneWidget extends Widget
     /**
      * @var string
      */
+    public $label;
+
+    /**
+     * @var string
+     */
     public $generateJSFile = true;
 
     /**
      * @var array
      */
     public $options;
+
+    /**
+     * @var array
+     */
+    public $events;
 
     /**
      * validation public property
@@ -51,7 +61,9 @@ class DropZoneWidget extends Widget
         $content = ob_get_clean();
         return $this->render('dropzone' ,[
             'id' => $this->id,
+            'label' => $this->label,
             'options' => $this->options,
+            'events' => $this->events,
             'site_url' => $this->site_url,
             'generateJSFile' => $this->generateJSFile,
         ]);

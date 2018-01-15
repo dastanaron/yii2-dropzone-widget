@@ -15,7 +15,9 @@ DropzoneAsset::register($this);
 
 ?>
 
-<div id="<?=$id;?>" class="dropzone-dev"></div>
+<div id="<?=$id;?>" class="dropzone-dev">
+    <?= !empty($label) ? $label : '';?>
+</div>
 
 <?php
 
@@ -31,7 +33,7 @@ if($generateJSFile) {
 }
 else {
 
-    $js = BuilderDropzoneJs::build($id, $options);
+    $js = BuilderDropzoneJs::build($id, $options, $events);
 
     $this->registerJs($js, \yii\web\View::POS_END);
 

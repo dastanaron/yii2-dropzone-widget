@@ -13,7 +13,7 @@ class BuilderDropzoneJs
 
     }
 
-    public static function build($id, $options)
+    public static function build($id, $options, $events = array())
     {
 
         $optionObject = self::ArrayToJsObject($options);
@@ -21,10 +21,20 @@ class BuilderDropzoneJs
         $string = 'jQuery(function ($) {
             var myDropzone = new Dropzone("div#'.$id.'", JSON.parse(\''.$optionObject.'\'));
             $("div#'.$id.'").addClass("dropzone");
-            myDropzone.on("error", function (event) {
+            myDropzone.on("success", function (event, response) {
                 console.log(event);
-            })
-        });';
+                console.log(response);
+            });';
+
+
+        if(!empty($events))
+        {
+            foreach($events as $type=>$function) {
+                $string .= 'myDropzone.on("'.$type.'", '.$function.');';
+            }
+        }
+
+        $string .= '});';
 
         return $string;
     }
