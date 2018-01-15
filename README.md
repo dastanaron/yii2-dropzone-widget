@@ -47,9 +47,12 @@ Usage
         'generateJSFile' => true, //Generate js file (the default is on)
         'options'=> [
             'url' => '/file-upload/image-upload', //Where to send a request to save the file
+            'maxFiles' => 1, //The maximum number of files
+            'acceptedFiles' => 'image / *', // MIME - file types
         ]
 ])?>
 ```
+In the array of options, you can specify all the options available in dropZoneLib, [list of options] (http://www.dropzonejs.com/#configuration-options)
 
 Example of a data acceptance controller, [details here](http://www.yiiframework.com/doc-2.0/guide-input-file-upload.html):
 
