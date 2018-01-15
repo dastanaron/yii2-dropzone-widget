@@ -46,9 +46,13 @@ composer require dastanaron/yii2-dropzone-widget "@dev" --prefer-dist
         'generateJSFile' => true, //Генерация js файла (по умолчанию - включена)
         'options'=> [
             'url' => '/file-upload/image-upload', //Куда посылать запрос на сохранение файла
+            'maxFiles' => 1, //Максимальное количество файлов
+            'acceptedFiles' => 'image/*', //MIME - типы файлов
         ]
 ])?>
 ```
+
+В массив опций, вы можете указывать все опции, доступные в dropZoneLib, [список опций](http://www.dropzonejs.com/#configuration-options)
 
 Пример контролера принятия данных, подробно [здесь](http://www.yiiframework.com/doc-2.0/guide-input-file-upload.html):
 
