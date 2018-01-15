@@ -16,6 +16,16 @@ class DropZoneWidget extends Widget
     public $id = 'dropzone-upload';
 
     /**
+     * @var string
+     */
+    public $site_url = '';
+
+    /**
+     * @var string
+     */
+    public $generateJSFile = true;
+
+    /**
      * @var array
      */
     public $options;
@@ -25,11 +35,9 @@ class DropZoneWidget extends Widget
      */
     public function init()
     {
-        if(empty($this->options)) {
-            $this->options = [
-                'url' => Yii::$app->urlManager->createUrl('site/upload'),
-            ];
-        }
+
+        if(!isset($this->options['url'])) $this->options['url'] = Yii::$app->urlManager->createUrl('site/upload');
+        if(!isset($this->options['paramName'])) $this->options['paramName'] = 'file';
 
         ob_start();
     }
@@ -44,6 +52,8 @@ class DropZoneWidget extends Widget
         return $this->render('dropzone' ,[
             'id' => $this->id,
             'options' => $this->options,
+            'site_url' => $this->site_url,
+            'generateJSFile' => $this->generateJSFile,
         ]);
     }
 }

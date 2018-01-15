@@ -27,5 +27,7 @@ class DropzoneAsset extends AssetBundle
         "js/dropzone.js",
     ];
     public $depends = [
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
     ];
 }

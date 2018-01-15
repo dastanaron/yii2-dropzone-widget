@@ -2,10 +2,14 @@
 
 /** @var $this yii\web\View */
 /** @var $id string */
+/** @var $site_url string */
+/** @var $generateJSFile bool */
 /** @var $options array */
 
+use Yii;
 use yii\helpers\Html;
 use dastanaron\dropzone\assets\DropzoneAsset;
+use dastanaron\dropzone\components\BuilderDropzoneJs;
 
 DropzoneAsset::register($this);
 
@@ -15,15 +19,20 @@ DropzoneAsset::register($this);
 
 <?php
 
-$js = <<<JS
-jQuery(function ($) {
-    var myDropzone = new Dropzone("div#$id", { url: "{$options['url']}", paramName: 'file' });
-    $("div#$id").addClass('dropzone');
-    myDropzone.on('error', function (event) {
-        console.log(event);
-    })
-});
-JS;
+if($generateJSFile) {
 
-$this->registerJs($js, \yii\web\View::POS_END);
+    $generatejs = $site_url . 'dynamikjs/dynamikjs/dropzonejs?id=' . $id . '&options[generate]=true';
 
+    foreach ($options as $key => $option) {
+        $generatejs .= '&options[' . $key . ']=' . $option;
+    }
+
+    $this->registerJsFile($generatejs, ['depends' => ['yii\web\YiiAsset', 'yii\bootstrap\BootstrapAsset'], 'position' => \yii\web\View::POS_END]);
+}
+else {
+
+    $js = BuilderDropzoneJs::build($id, $options);
+
+    $this->registerJs($js, \yii\web\View::POS_END);
+
+}
