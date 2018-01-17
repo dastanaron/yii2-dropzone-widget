@@ -7,6 +7,10 @@ dropzone-widget
 1. Все работает, в том числе конвертация массива php в объект JS.
 2. Не выбрасывает скрипты в тело html - документа, чем грешат большинство виджетов на yii2
 
+Последние изменения:
+------------------------
+
+1. Добавлена возможность обработки событий
 
 Installation
 ------------
@@ -48,11 +52,20 @@ composer require dastanaron/yii2-dropzone-widget "@dev" --prefer-dist
             'url' => '/file-upload/image-upload', //Куда посылать запрос на сохранение файла
             'maxFiles' => 1, //Максимальное количество файлов
             'acceptedFiles' => 'image/*', //MIME - типы файлов
-        ]
+        ],
+        'events' => [
+            'success' => 'function(event, response) {
+                console.log("success")
+                $("input#inputid").val(response.id);
+            }',
+        ],
 ])?>
 ```
 
 В массив опций, вы можете указывать все опции, доступные в dropZoneLib, [список опций](http://www.dropzonejs.com/#configuration-options)
+
+В массив `events`, вы можете передать функции для обработки `dropZone.on("event", function() {})` ключом будет ваше событие,
+а функция - функция переданная для обработки указанного события. События dropZone указаны [здесь](http://www.dropzonejs.com/#event-list)
 
 Пример контролера принятия данных, подробно [здесь](http://www.yiiframework.com/doc-2.0/guide-input-file-upload.html):
 

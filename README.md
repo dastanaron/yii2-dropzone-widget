@@ -48,11 +48,20 @@ Usage
         'options'=> [
             'url' => '/file-upload/image-upload', //Where to send a request to save the file
             'maxFiles' => 1, //The maximum number of files
-            'acceptedFiles' => 'image / *', // MIME - file types
-        ]
-])?>
+            'acceptedFiles' => 'image/*', // MIME - file types
+        ],
+        'events' => [
+            'success' => 'function(event, response) {
+                console.log("success")
+                $("input#inputid").val(response.id);
+            }',
+        ],
+]);?>
 ```
 In the array of options, you can specify all the options available in dropZoneLib, [list of options] (http://www.dropzonejs.com/#configuration-options)
+
+In the `events` array, you can pass functions to handle` dropZone.on ("event", function () {}) `the key will be your event,
+and the function is the function passed to handle the specified event. The dropZone events are indicated [here] (http://www.dropzonejs.com/#event-list)
 
 Example of a data acceptance controller, [details here](http://www.yiiframework.com/doc-2.0/guide-input-file-upload.html):
 
